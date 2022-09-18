@@ -3,7 +3,7 @@ from dataclasses import dataclass
 from enum import Enum, auto
 
 
-class EventId(Enum):
+class OrderStatus(Enum):
     """All possible events while ordering"""
     OPEN = auto()
     CLOSED_WAITING_PAYMENT = auto()
@@ -34,7 +34,7 @@ class Product:
 class Message:
     """Message format"""
     creation_date: datetime.datetime
-    event_id: EventId
+    order_status: OrderStatus
     order_id: int
     customer_id: str
     product: Product
@@ -43,7 +43,7 @@ class Message:
     def set_message(self) -> dict:
         """Generating message schema"""
         message = {"CreationDate": self.creation_date,
-                   "EventId": self.event_id,
+                   "OrderStatus": self.order_status,
                    "OrderId": self.order_id,
                    "CustomerId": self.customer_id,
                    "ProductId": self.product.product_id,
