@@ -58,17 +58,14 @@ def generate_parameters():
     return (creation_date, order_status, order_id, customer_id, product)
 
 
-def main(n: int = 50,
-         delay: int = 2) -> None:
+def main(n: int = 100,
+         delay: int = .5) -> None:
     """Main function"""
     for _ in range(n):
         message = Message(*generate_parameters())
         body = json.dumps(message.get_message(), indent=4)
         body = str(body)
-#        print(str(body))
-        # print(message.get_message())
         time.sleep(delay)
-
         send_message_to_pubsub(body)
 
 
