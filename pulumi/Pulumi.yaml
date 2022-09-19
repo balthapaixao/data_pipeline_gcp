@@ -1,0 +1,6 @@
+name: dev-data-pipeline
+description: A minimal Google Cloud Python Pulumi program
+runtime:
+    name: python
+    options:
+        virtualenv: venv

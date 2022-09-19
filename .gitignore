@@ -1,7 +1,5 @@
 #
-cloud_function/*
 .vscode*
-bigquery/*
 *portfolio-admin.json
 
 # Byte-compiled / optimized / DLL files

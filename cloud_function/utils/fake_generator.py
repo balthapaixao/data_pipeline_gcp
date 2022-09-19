@@ -43,10 +43,12 @@ def generate_parameters():
 
 def main(n: int = 50,
          delay: int = 5) -> None:
+    """Main function"""
     for _ in range(n):
         message = Message(*generate_parameters())
-        body = json.dumps(message.get_message())
+        #body = json.dumps(message.get_message)
 #        print(output)
+        print(message.get_message())
         time.sleep(delay)
 
         # send_message_to_pubsub()
