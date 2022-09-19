@@ -1,7 +1,8 @@
 """A Google Cloud Python Pulumi program"""
 
-import pulumi
 from pulumi_gcp import bigquery, pubsub, storage
+
+import pulumi
 
 # Create a GCP resource (Storage Bucket)
 bucket = storage.Bucket(resource_name='data-pipeline-bucket',
@@ -10,7 +11,8 @@ bucket = storage.Bucket(resource_name='data-pipeline-bucket',
                         labels={
                             "env": "dev",
                         },
-                        project="cloud-portfolio-dev"
+                        project="cloud-portfolio-dev",
+                        force_destroy=True
                         )
 
 pubsub_topic = pubsub.Topic(resource_name="receive-order-topic",
@@ -27,37 +29,41 @@ dataset = bigquery.Dataset(resource_name="business-dataset",
                            description="Datapipeline Dataset",
                            location="US",
                            delete_contents_on_destroy=True,
-                           accesses=[
-                               bigquery.DatasetAccessArgs(
-                                   role="OWNER",
-                                   user_by_email="balthazarpaixao@gmail.com",
-                               ),
-                               #                               bigquery.DatasetAccessArgs(
-                               # role="READER",
-                               #                                   domain="anytesting.com"
-                               #                               )
-                           ],
+                           #                           accesses=[
+                           #                               bigquery.DatasetAccessArgs(
+                           #                                   role="OWNER",
+                           #                                   user_by_email="balthazarpaixao@gmail.com",
+                           #                               ),
+                           #                               bigquery.DatasetAccessArgs(
+                           #                                   role="OWNER",
+                           #                                   user_by_email="portfolio@cloud-portfolio-dev.iam.gserviceaccount.com",
+                           #                               ),
+                           #                               bigquery.DatasetAccessArgs(
+                           # role="READER",
+                           #                                   domain="paper.co"
+                           #                               )
+                           #                           ],
                            #                           default_partition_expiration_ms=3600000,
                            labels={
                                "env": "dev"
                            },
                            project="cloud-portfolio-dev"
                            )
-default_table = bigquery.Table(resource_name="orders-table",
-                               dataset_id="Business",
-                               table_id="Orders",
-                               deletion_protection=False,
-                               #                               clustering=None,
-                               time_partitioning=bigquery.TableTimePartitioningArgs(
-                                   type="DAY",
-                                   field="CreationDate"
-                               ),
-
-                               project="cloud-portfolio-dev",
-                               labels={
-                                   "env": "dev",
-                               },
-                               schema="""[
+table = bigquery.Table(resource_name="orders-table",
+                       dataset_id="Business",
+                       table_id="Orders",
+                       deletion_protection=False,
+                       #                               clustering=None,
+                       time_partitioning=bigquery.TableTimePartitioningArgs(
+                           type="DAY",
+                           field="CreationDate"
+                       ),
+                       opts=pulumi.ResourceOptions(depends_on=[dataset]),
+                       project="cloud-portfolio-dev",
+                       labels={
+                           "env": "dev",
+                       },
+                       schema="""[
   {
     "name": "CreationDate",
     "type": "DATETIME",

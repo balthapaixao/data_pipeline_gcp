@@ -42,11 +42,11 @@ class Message:
     @property
     def set_message(self) -> dict:
         """Generating message schema"""
-        message = {"CreationDate": self.creation_date,
-                   "OrderStatus": self.order_status,
+        message = {"CreationDate": self.creation_date.strftime("%Y-%m-%d %H:%M:%S"),
+                   "OrderStatus": self.order_status.value,
                    "OrderId": self.order_id,
                    "CustomerId": self.customer_id,
-                   "ProductId": self.product.product_id,
+                   "ProductId": self.product.product_id.value,
                    "ProductPrice": self.product.price
                    }
         return message

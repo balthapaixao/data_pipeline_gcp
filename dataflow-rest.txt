@@ -1,0 +1,14 @@
+POST /v1b3/projects/cloud-portfolio-dev/locations/us-central1/templates:launch?gcsPath=gs://dataflow-templates-us-central1/latest/PubSub_to_BigQuery
+{
+    "jobName": "parse-message",
+    "environment": {
+        "bypassTempDirValidation": false,
+        "tempLocation": "gs://data-pipeline-cloud-portfolio/tmp/",
+        "ipConfiguration": "WORKER_IP_UNSPECIFIED",
+        "additionalExperiments": []
+    },
+    "parameters": {
+        "inputTopic": "projects/cloud-portfolio-dev/topics/ReceiveOrder",
+        "outputTableSpec": " cloud-portfolio-dev:Business.Orders"
+    }
+}
