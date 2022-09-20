@@ -53,7 +53,7 @@ table = bigquery.Table(resource_name="orders-table",
                        dataset_id="Business",
                        table_id="Orders",
                        deletion_protection=False,
-                       #                               clustering=None,
+                       clusterings=["OrderStatus", "ProductID"],
                        time_partitioning=bigquery.TableTimePartitioningArgs(
                            type="DAY",
                            field="CreationDate"
