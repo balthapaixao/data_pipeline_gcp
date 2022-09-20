@@ -16,7 +16,7 @@ fake = Faker()
 def send_message_to_pubsub(message: str) -> None:
     project_id = "cloud-portfolio-dev"
     topic_id = "ReceiveOrder"
-    print(message)
+    # print(message)
     publisher = pubsub_v1.PublisherClient()
 
     topic_path = publisher.topic_path(project_id, topic_id)
@@ -25,7 +25,7 @@ def send_message_to_pubsub(message: str) -> None:
 
     future = publisher.publish(topic_path,
                                data=data)
-    print(future)
+    # print(future)
 
 
 def generate_parameters():
@@ -58,8 +58,8 @@ def generate_parameters():
     return (creation_date, order_status, order_id, customer_id, product)
 
 
-def main(n: int = 100,
-         delay: int = .5) -> None:
+def main(n: int = 10000,
+         delay: int = 0) -> None:
     """Main function"""
     for _ in range(n):
         message = Message(*generate_parameters())
