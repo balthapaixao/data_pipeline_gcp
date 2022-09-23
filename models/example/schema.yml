@@ -1,23 +1,33 @@
 version: 2
 
 models:
-  - name: my_first_dbt_model
+  - name: fat_orders
     description: "A starter dbt model"
     columns:
-      - name: id
-        description: "The primary key for this table"
-        tests:
-          - unique
-          - not_null
+      - name: dky_day
+        description: "day"
+      
+      - name: dky_status
+        description: ""
 
-  - name: my_second_dbt_model
-    description: "A starter dbt model"
-    columns:
-      - name: id
-        description: "The primary key for this table"
-        tests:
-          - unique
-          - not_null
+      - name: dky_product
+        description: ""
+ 
+      - name: qty_orders
+        description: ""
+
+      - name: num_price
+        description: ""
+
+      - name: qty_distinct_customers
+        description: ""
+ 
+      - name: qty_customers
+        description: ""
+      
+      - name: qty_closed_orders
+        description: ""
+      
 
   - name: dim_product
     description: "Products dimension"
